@@ -182,17 +182,23 @@ class Player(pygame.sprite.Sprite):
 
         if pressed_keys[K_UP]:
             self.moveUp()
-        elif pressed_keys[K_DOWN]:
+        if pressed_keys[K_DOWN]:
             self.moveDown()
-        elif pressed_keys[K_LEFT]:
+        if pressed_keys[K_LEFT]:
             self.moveLeft()
-        elif pressed_keys[K_RIGHT]:
+        if pressed_keys[K_RIGHT]:
             self.moveRight()
-        elif pressed_keys[K_r]:
+        if pressed_keys[K_RSHIFT] or pressed_keys[K_LSHIFT]:
+            self.v = 1
+        else:
+            self.v = 0.4
+        if pressed_keys[K_r]:
             self.game.running = False
             start()
 
+
         if self.game.exit.x <= self.size + 5 and self.game.exit.y <= self.size + 5:
+            self.v = 0
             self.game.win()
 
     def moveDown(self):
@@ -202,7 +208,7 @@ class Player(pygame.sprite.Sprite):
             if sprite != self and sprite != self.game.exit:
                 if not self.canMoveTo(self, Coords(sprite.x, sprite.y-self.v, sprite.size)):
                     
-                    distance = sprite.y - (self.x + self.size) - 1
+                    distance = sprite.y - (self.x + self.size) - 0.1
                     canMove = False
                     break
 
@@ -221,7 +227,7 @@ class Player(pygame.sprite.Sprite):
             if sprite != self and sprite != self.game.exit:
                 if not self.canMoveTo(self, Coords(sprite.x, sprite.y+self.v, sprite.size)):
                     
-                    distance = self.y - (sprite.y + sprite.size) - 1
+                    distance = self.y - (sprite.y + sprite.size) - 0.1
                     canMove = False
                     break
 
@@ -239,7 +245,7 @@ class Player(pygame.sprite.Sprite):
             if sprite != self and sprite != self.game.exit:
                 if not self.canMoveTo(self, Coords(sprite.x+self.v, sprite.y, sprite.size)):
                     
-                    distance = self.x - (sprite.x + sprite.size) - 1
+                    distance = self.x - (sprite.x + sprite.size) - 0.1
                     canMove = False
                     break
 
@@ -257,7 +263,7 @@ class Player(pygame.sprite.Sprite):
             if sprite != self and sprite != self.game.exit:
                 if not self.canMoveTo(self, Coords(sprite.x-self.v, sprite.y, sprite.size)):
                     
-                    distance = sprite.x - (self.x + self.size) - 1
+                    distance = sprite.x - (self.x + self.size) - 0.1
                     canMove = False
                     break
 
